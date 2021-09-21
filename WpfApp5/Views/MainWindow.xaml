@@ -1,0 +1,54 @@
+﻿<Window x:Class="WpfApp5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+
+            <StackPanel Width="300" Margin="114,39,114,81" HorizontalAlignment="Center" VerticalAlignment="Center" Height="299">
+                <TextBlock FontSize="26">Name</TextBlock>
+                <TextBox FontSize="26" BorderThickness="1" BorderBrush="Aqua"></TextBox>
+                <TextBlock FontSize="26">Surname</TextBlock>
+                <TextBox FontSize="26" BorderThickness="1" BorderBrush="Aqua"></TextBox>
+                <TextBlock FontSize="26">Email</TextBlock>
+                <TextBox FontSize="26" BorderThickness="1" BorderBrush="Aqua"></TextBox>
+                <Button Width="100"
+                    Height="50"
+                    Background="Red"
+                    Content="Save"
+                    FontSize="26"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Left"
+                    Margin="5"  >
+                </Button>
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.Column="1">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <WrapPanel>
+
+                    <RadioButton VerticalContentAlignment="Center"   Height="50" HorizontalContentAlignment="Center"  >
+                    </RadioButton>
+                    <Label Width="100" FontSize="26">Xml</Label>
+                </WrapPanel>
+                <WrapPanel>
+
+                    <RadioButton VerticalContentAlignment="Center"    Height="50" HorizontalContentAlignment="Center" ></RadioButton>
+                    <Label FontSize="26">Json</Label>
+                </WrapPanel>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Window>
