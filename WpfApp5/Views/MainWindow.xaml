@@ -5,50 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp5"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="BlanchedAlmond" >
     <Grid>
+        
+        
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid Grid.Column="0">
 
-            <StackPanel Width="300" Margin="114,39,114,81" HorizontalAlignment="Center" VerticalAlignment="Center" Height="299">
-                <TextBlock FontSize="26">Name</TextBlock>
-                <TextBox FontSize="26" BorderThickness="1" BorderBrush="Aqua"></TextBox>
-                <TextBlock FontSize="26">Surname</TextBlock>
-                <TextBox FontSize="26" BorderThickness="1" BorderBrush="Aqua"></TextBox>
-                <TextBlock FontSize="26">Email</TextBlock>
-                <TextBox FontSize="26" BorderThickness="1" BorderBrush="Aqua"></TextBox>
-                <Button Width="100"
+            <Grid Width="300" Margin="114,39,114,81" HorizontalAlignment="Center" VerticalAlignment="Center" Height="299">
+
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBox Grid.Row="0" Height="50" FontSize="30" Name="NameTxtBx" Foreground="Gray"  Text="{Binding User.Name}"  MouseEnter="NameTxtBx_MouseEnter" MouseLeave="NameTxtBx_MouseLeave"></TextBox>
+
+                <TextBox   Grid.Row="1" FontSize="30"  Height="50"  Name="SurnameTxtBx"  Foreground="Gray" Text="{Binding User.Surname}"  MouseEnter="SurnameTxtBx_MouseEnter" MouseLeave="SurnameTxtBx_MouseLeave" ></TextBox>
+
+                <TextBox Grid.Row="2" FontSize="30" Height="50" Name="EmailTxtBx" Foreground="Gray" Text="{Binding User.Email}" MouseEnter="EmailTxtBx_MouseEnter" MouseLeave="EmailTxtBx_MouseLeave"></TextBox>
+                <Button
+                    Name="SaveBtn"
+                    Command="{Binding SaveCommand}"
+                    Grid.Row="3" 
+                    Width="200"
                     Height="50"
-                    Background="Red"
+                    Background="Salmon"
                     Content="Save"
                     FontSize="26"
                     FontWeight="Bold"
                     HorizontalAlignment="Left"
                     Margin="5"  >
                 </Button>
-            </StackPanel>
+            </Grid>
 
         </Grid>
         <Grid Grid.Column="1">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <WrapPanel>
 
-                    <RadioButton VerticalContentAlignment="Center"   Height="50" HorizontalContentAlignment="Center"  >
-                    </RadioButton>
+                    <CheckBox x:Name="xmlCheckBx" VerticalContentAlignment="Center"   Height="50" HorizontalContentAlignment="Center"  >
+                    </CheckBox>
                     <Label Width="100" FontSize="26">Xml</Label>
                 </WrapPanel>
                 <WrapPanel>
 
-                    <RadioButton VerticalContentAlignment="Center"    Height="50" HorizontalContentAlignment="Center" ></RadioButton>
+                    <CheckBox Name="JsonCheckBx"  VerticalContentAlignment="Center"    Height="50" HorizontalContentAlignment="Center" ></CheckBox>
                     <Label FontSize="26">Json</Label>
                 </WrapPanel>
             </StackPanel>
         </Grid>
-        
+
     </Grid>
 </Window>

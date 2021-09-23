@@ -1,90 +1,145 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
+using System.Xml.Serialization;
+using WpfApp5.Models;
 
 namespace WpfApp5.ViewModels
 {
 
-    class PersonData
-    {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-
-        public string Email { get; set; }
-    }
-
     interface IAdapter
     {
-        void WriteData();
+        void Write();
     }
 
-    class XmlAdapter : IAdapter
+    class JSON_Adapter : IAdapter
     {
-        private XmlFile _file;
+        JSON_File _JSON_File;
 
-        public XmlAdapter(XmlFile file)
+        public JSON_Adapter(JSON_File JSON_File)
         {
-            _file = file;
+            _JSON_File = JSON_File;
         }
-
-        public void WriteData()
-        {
-            _file.Write();
-        }
-
-
-
-
-    }
-    class JsonAdapter : IAdapter
-    {
-        private JsonFile _file;
-
-        public PersonData person { get; set; }
-
-        public JsonAdapter(JsonFile file)
-        {
-            _file = file;
-        }
-
-        public void WriteData()
-        {
-            _file.Write(person, person.Name);
-        }
-
-
-
-
-    }
-
-    class XmlFile
-    {
         public void Write()
         {
-            Console.WriteLine("Xml");
+            _JSON_File.JSON_Serialize();
         }
-
     }
 
-    class JsonFile
+
+    class XML_Adapter : IAdapter
     {
-        public void Write(PersonData personData, string filename)
+        XML_File _XML_File;
+
+
+        public XML_Adapter(XML_File XML_File)
+        {
+            _XML_File = XML_File;
+        }
+        public void Write()
+        {
+            _XML_File.XML_Serialize();
+        }
+    }
+
+
+
+    class JSON_File : BaseViewModel
+    {
+
+        private ObservableCollection<User> _user_List;
+        public ObservableCollection<User> User_List
+        {
+            get { return _user_List; }
+            set { _user_List = value; OnPropertyChanged(); }
+        }
+
+
+        private User _user;
+
+        public User User
+        {
+            get { return _user; }
+            set { _user = value; OnPropertyChanged(); }
+        }
+
+        public MainWindow MainWindows { get; set; }
+
+        public AppViewModel AppViewModel { get; set; }
+
+        public JSON_File()
         {
 
+        }
+
+        public void JSON_Serialize()
+        {
 
             var serializer = new JsonSerializer();
-
-            using (var sw = new StreamWriter($"{filename}.json"))
+            using (var sw = new StreamWriter($@"UserData.json", true))
             {
                 using (var jw = new JsonTextWriter(sw))
                 {
                     jw.Formatting = Newtonsoft.Json.Formatting.Indented;
-                    serializer.Serialize(jw, personData);
+                    serializer.Serialize(jw, User_List);
                 }
             }
 
         }
+
+
+
     }
+
+
+
+    class XML_File : BaseViewModel
+    {
+
+        private ObservableCollection<User> _user_List;
+        public ObservableCollection<User> User_List 
+        { 
+            get { return _user_List; } 
+            set { _user_List = value; OnPropertyChanged(); }
+        }
+
+
+        private User _user;
+
+        public User User 
+        { 
+            get { return _user; } 
+            set { _user = value; OnPropertyChanged(); } 
+        }
+
+
+        public MainWindow MainWindows { get; set; }
+
+        public AppViewModel appViewModel { get; set; }
+
+        public XML_File()
+        {
+
+        }
+
+
+
+        public void XML_Serialize()
+        {
+
+            var xml = new XmlSerializer(typeof(ObservableCollection<User>));
+            using (var fs = new FileStream($@"UserData.xml", FileMode.OpenOrCreate))
+            {
+                xml.Serialize(fs, User_List);
+            }
+        }
+
+
+    }
+
+
+
 
     class Converter
     {
@@ -94,25 +149,30 @@ namespace WpfApp5.ViewModels
         {
             _adapter = adapter;
         }
-        public void Write()
+
+        public void WriteFile()
         {
-            _adapter.WriteData();
+            _adapter.Write();
         }
 
     }
 
-    class Application
+
+    class Application_File
     {
         private readonly Converter _converter;
-        public Application(IAdapter adapter)
+
+        public Application_File(IAdapter adapter)
         {
             _converter = new Converter(adapter);
         }
+
         public void Start()
         {
-            _converter.Write();
-
+            _converter.WriteFile();
         }
+
     }
+
 
 }

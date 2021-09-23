@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="Models\AdapterPattern.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
